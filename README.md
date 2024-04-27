@@ -7,7 +7,13 @@ Book Management API es una aplicación backend desarrollada en Node.js con el fr
 
 Puedes interactuar con la API utilizando la siguiente URL:
 
-[Ir a probar la API](http://190.147.64.47:5155/api-doc)
+[Ir a probar la API](http://190.147.64.47:5155/api-doc) -> Para ingresar como admin puedes usar estas credenciales:
+```json
+{
+  "email": "prueba@prueba.pru",
+  "password": "C0ntr4S3gu++r4"
+}
+```
 
 Este despliegue refleja el estado más reciente del código en la rama `main`.
 
