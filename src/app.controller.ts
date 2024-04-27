@@ -1,12 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Swagger')
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('/')
+  swagger() {
+    return `<div style="text-align: center; margin-top: 5rem;">
+      <h1>Webservice Book-Manager</h1>
+      <p>Documentation API: <a href="/api-doc">swagger</a></p>
+      </div>`;
   }
 }
