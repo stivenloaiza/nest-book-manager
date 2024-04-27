@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
@@ -9,7 +13,7 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
-  constructor (
+  constructor(
     @InjectRepository(User)
     private readonly useariosRepository: Repository<User>,
     private jwtService: JwtService,
@@ -20,12 +24,11 @@ export class AuthService {
 
     const user: User = await this.useariosRepository.findOne({
       where: { email: dto.email.toLowerCase() },
-      select: { id: true, email: true, password: true, role: true }
+      select: { id: true, email: true, password: true, role: true },
     });
 
     // Comprobar existencia
-    if (!user)
-      throw new NotFoundException('User not found in database');
+    if (!user) throw new NotFoundException('User not found in database');
 
     // Comprobar credenciales
     if (!bcrypt.compareSync(password, user.password))
@@ -35,11 +38,11 @@ export class AuthService {
 
     return {
       message: 'Success',
-      data: { ...user, token: this.getJwtToken({ id: user.id }) }
+      data: { ...user, token: this.getJwtToken({ id: user.id }) },
     };
   }
 
-  private getJwtToken( payload: JwtPayload ) {
+  private getJwtToken(payload: JwtPayload) {
     return this.jwtService.sign(payload);
   }
 }

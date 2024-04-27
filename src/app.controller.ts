@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Path to Swagger')
+@ApiTags('Swagger')
 @Controller()
 export class AppController {
   @Get('/')

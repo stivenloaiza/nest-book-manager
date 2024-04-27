@@ -32,6 +32,7 @@ export class User {
   @Column({ select: false })
   password: string;
 
+  // Campos relacionales
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'updatedBy' })
   @Column({ nullable: true })

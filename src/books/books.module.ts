@@ -8,14 +8,7 @@ import { User } from 'src/users/entities/user.entity';
 import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      Book,
-      BookFile,
-      User
-    ]),
-    AuthModule
-  ],
+  imports: [TypeOrmModule.forFeature([Book, BookFile, User]), AuthModule],
   controllers: [BooksController],
   providers: [BooksService],
 })

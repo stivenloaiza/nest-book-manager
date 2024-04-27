@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -8,18 +13,17 @@ import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 
 @Injectable()
 export class UsersService {
-  constructor (
+  constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
 
   async create(dto: CreateUserDto) {
-    // TODO: email.toLowerCase();
     try {
       // Crear y guardar en la base de datos
       const user: User = this.userRepository.create({
         ...dto,
-        role: process.env.USER_ROLE
+        role: process.env.USER_ROLE,
       });
       await this.userRepository.save(user);
 
@@ -29,7 +33,7 @@ export class UsersService {
         data: res,
       };
     } catch (error) {
-      throw new InternalServerErrorException('Database error: ' + error);
+      throw new InternalServerErrorException(error);
     }
   }
 
@@ -48,14 +52,17 @@ export class UsersService {
 
     return {
       message: 'Success',
-      data: users
+      data: users,
     };
   }
 
   async updateRole(id: string, role: string, user: User) {
     // Comprobar que el rol sea válido
-    if (!(role in ValidRoles))
-      throw new NotFoundException(`A valid role is required: ${Object.values(ValidRoles)}`);
+    if (!(role in ValidRoles)) {
+      throw new NotFoundException(
+        `A valid role is required: ${Object.values(ValidRoles)}`,
+      );
+    }
 
     // Comprobar la existencia del usuario
     const userToUpdate: User = await this.userRepository.findOneBy({ id });
@@ -72,10 +79,10 @@ export class UsersService {
       const res: User = await this.userRepository.findOneBy({ id });
       return {
         message: 'Success',
-        data: res
+        data: res,
       };
     } catch (error) {
-      throw new InternalServerErrorException('Database error: ' + error);
+      throw new InternalServerErrorException(error);
     }
   }
 }

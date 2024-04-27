@@ -11,7 +11,18 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
@@ -51,12 +62,13 @@ export class UsersController {
   @ApiBadRequestResponse({ description: 'Bad Request' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiInternalServerErrorResponse({ description: 'Server Error' })
-  // @ApiQuery({ name: 'role '})
-  @Patch('role/:id')
+  @ApiParam({ name: 'id', description: 'uuid user' })
+  @ApiQuery({ name: 'role', description: 'role to update' })
+  @Patch(':id/role')
   updateRole(
     @Param('id', ParseUUIDPipe) id: string,
     @Query('role') role: string,
-    @Request() req
+    @Request() req,
   ) {
     return this.usersService.updateRole(id, role, req.user);
   }

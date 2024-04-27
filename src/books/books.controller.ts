@@ -8,15 +8,30 @@ import {
   Delete,
   Request,
   Query,
-  ParseUUIDPipe
+  ParseUUIDPipe,
+  UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiConsumes,
+  ApiCreatedResponse,
+  ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { UploadFilesDto } from './dto/upload-files.dto';
 
 @ApiTags('Books')
 @Controller('books')
@@ -33,6 +48,25 @@ export class BooksController {
   @Post()
   create(@Body() dto: CreateBookDto, @Request() req) {
     return this.booksService.create(dto, req.user);
+  }
+
+  @Auth(ValidRoles.admin)
+  @ApiOperation({ summary: 'Upload files by id book' })
+  @ApiOkResponse({ description: 'Success' })
+  @ApiNotFoundResponse({ description: 'Not Found' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiInternalServerErrorResponse({ description: 'Server Error' })
+  @ApiConsumes('multipart/form-data')
+  @Post(':id/upload')
+  @UseInterceptors(FilesInterceptor('files'))
+  upload(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: UploadFilesDto,
+    @UploadedFiles() files: Array<Express.Multer.File>,
+    @Request() req,
+  ) {
+    return this.booksService.upload(id, dto, files, req.user);
   }
 
   @Auth()
@@ -72,7 +106,7 @@ export class BooksController {
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateBookDto,
-    @Request() req
+    @Request() req,
   ) {
     return this.booksService.update(id, dto, req.user);
   }
