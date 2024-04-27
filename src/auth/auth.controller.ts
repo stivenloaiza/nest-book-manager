@@ -12,7 +12,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiOperation({ summary: 'Autenticar usuario' })
+  @ApiOperation({ summary: 'Authenticate user' })
   @ApiCreatedResponse({ description: 'Success' })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiBadRequestResponse({ description: 'Bad Request' })

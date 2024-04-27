@@ -11,17 +11,14 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { Role } from './role.entity';
 
 @Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Role, { eager: true, nullable: false })
-  @JoinColumn({ name: 'role' })
-  @Column('uuid')
-  role;
+  @Column()
+  role: string;
 
   @Column()
   name: string;
