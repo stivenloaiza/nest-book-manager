@@ -24,6 +24,13 @@ export class BooksService {
     private readonly fileRepository: Repository<BookFile>,
   ) {}
 
+  async findPhraseById(id:string){
+    return {
+        phrase: "Ojo por ojo y el mundo quedará ciego",
+        author:"Gandhi"
+      }
+  }
+
   async create(dto: CreateBookDto, user: User) {
     // Comprobar que la fecha de publicación sea válida
     if (dto.publicationDate && new Date(dto.publicationDate) > new Date()) {
