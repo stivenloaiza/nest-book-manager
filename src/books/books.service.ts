@@ -167,4 +167,12 @@ export class BooksService {
       throw new InternalServerErrorException(error);
     }
   }
+
+  async coderAngelica() {
+    const response = {
+      phrase: 'hola...',
+      author: 'Angelica',
+    };
+    return response;
+  }
 }
