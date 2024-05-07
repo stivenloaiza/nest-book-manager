@@ -55,6 +55,18 @@ export class UsersController {
     return this.usersService.findAll(dto);
   }
 
+  @Auth()
+  @ApiOperation({ summary: 'Get all users' })
+  @ApiOkResponse({ description: 'Success' })
+  @ApiNotFoundResponse({ description: 'Not Found' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiInternalServerErrorResponse({ description: 'Server Error' })
+  @Get('/coder/:id')
+  findCoderById(@Param('id', ParseUUIDPipe) id: string) {
+    return this.usersService.findCoderById(id);
+  }
+
   @Auth(ValidRoles.admin)
   @ApiOperation({ summary: 'Update user role' })
   @ApiOkResponse({ description: 'Success' })

@@ -56,6 +56,18 @@ export class UsersService {
     };
   }
 
+  async findCoderById(id: string) {
+
+    // Consulta de usuarios con paginación
+    const coder: User = await this.userRepository.findOneById(id)
+
+    // Comprobar la existencia de datos
+    if (!coder)
+      throw new NotFoundException('Coder not found in database');
+
+    return  {"phrase":"Hola coders", "author": "Samuel Quintero"}
+  }
+
   async updateRole(id: string, role: string, user: User) {
     // Comprobar que el rol sea válido
     if (!(role in ValidRoles)) {

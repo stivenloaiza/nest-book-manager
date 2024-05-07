@@ -127,6 +127,17 @@ export class BooksService {
     };
   }
 
+  async findCoderById(id: string) {
+    // Consultar libro por id y comprobar existencia
+    const coder: Book = await this.bookRepository.findOneBy({ id });
+    if (!coder) throw new NotFoundException('Book not found in database');
+
+    return {
+      message: 'Success',
+      data: coder,
+    };
+  }
+
   async update(id: string, dto: UpdateBookDto, user: User) {
     // Comprobar la existencia de al menos un dato para actualizar
     if (Object.keys(dto).length === 0)
