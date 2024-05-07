@@ -5,7 +5,8 @@ import { UserIsMe } from '../guards/alexR.guard';
 
 export function AuthAlex() {
   return applyDecorators(
-    UseGuards(AuthGuard(), UserIsMe),
+    //UseGuards(AuthGuard(), UserIsMe),
+    UseGuards(UserIsMe),
     ApiBearerAuth(),
   );
 }
