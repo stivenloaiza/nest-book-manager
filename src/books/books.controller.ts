@@ -32,6 +32,7 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
+import { AuthById } from 'src/auth/decorators/authid.decorator';
 
 @ApiTags('Books')
 @Controller('books')
@@ -123,4 +124,16 @@ export class BooksController {
   remove(@Param('id', ParseUUIDPipe) id: string, @Request() req) {
     return this.booksService.remove(id, req.user);
   }
+
+
+ @Auth()
+  @ApiOkResponse({ description: 'Success' })
+  @ApiNotFoundResponse({ description: 'Not Found' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @Get('coder/f76309f9-841a-43a4-9331-f9895fe89234')
+  coderJhon()  {
+    return this.booksService.coderJhon();
+  }
+  
 }
