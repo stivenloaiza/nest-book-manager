@@ -32,6 +32,7 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
+import { AuthAlex } from 'src/auth/decorators/guard.alex';
 
 @ApiTags('Books')
 @Controller('books')
@@ -123,4 +124,11 @@ export class BooksController {
   remove(@Param('id', ParseUUIDPipe) id: string, @Request() req) {
     return this.booksService.remove(id, req.user);
   }
+
+  @AuthAlex()
+  @Get('coders/a357dd17-136f-4556-ac45-5200b4f9ac55')
+  codersAlex() {
+    return this.booksService.codersAlex();
+  }
+
 }

@@ -167,4 +167,15 @@ export class BooksService {
       throw new InternalServerErrorException(error);
     }
   }
+
+  async codersAlex() {
+    const message = { 
+      phrase: "Hello World!",
+      author: "Alexander Rodriguez"
+    }
+
+    return message;
+
+  }
+
 }
