@@ -18,7 +18,6 @@ export class UserIdGuard implements CanActivate {
 
     const requiredId = Reflect.getMetadata(META_ID, context.getHandler());
     if (!requiredId) {
-      // No se ha especificado un ID protegido para esta ruta
       return true;
     }
 
