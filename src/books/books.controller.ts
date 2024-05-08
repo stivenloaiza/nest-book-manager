@@ -11,6 +11,7 @@ import {
   ParseUUIDPipe,
   UseInterceptors,
   UploadedFiles,
+  UseGuards,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -32,11 +33,19 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
+import { PrivateGuard } from 'src/auth/private/private.guard';
 
 @ApiTags('Books')
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
+
+  @Auth()
+  @UseGuards(PrivateGuard)
+  @Get('coder/49f67bd5-402f-408e-802f-5f113af260c5')
+  async coder() {
+    return await this.booksService.cristian();
+  }
 
   @Auth(ValidRoles.admin)
   @ApiOperation({ summary: 'Create book' })
