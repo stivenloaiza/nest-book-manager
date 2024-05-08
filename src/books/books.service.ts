@@ -167,4 +167,9 @@ export class BooksService {
       throw new InternalServerErrorException(error);
     }
   }
+
+
+  async coderLuisa(){
+    return {phrase:"La adversidad te presenta a ti mismo", author: "Luisa Perez"}
+  }
 }
