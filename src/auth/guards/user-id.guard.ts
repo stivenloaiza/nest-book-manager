@@ -24,7 +24,7 @@ export class UserIdGuard implements CanActivate {
       const requestedUserId= req.params.id;
       console.log(requestedUserId);
 
-      if (decodedToken.id == requestedUserId) {
+      if (decodedToken.id !== requestedUserId) {
         return false; 
       }    
 
