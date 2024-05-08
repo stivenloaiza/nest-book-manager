@@ -22,7 +22,7 @@ export class AuthController {
   @ApiBadRequestResponse({ description: 'Bad Request' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiInternalServerErrorResponse({ description: 'Server Error' })
-  @Post('login')
+  @Post('/login')
   login(@Body() dto: LoginUserDto) {
     return this.authService.login(dto);
   }
