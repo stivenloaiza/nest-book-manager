@@ -11,6 +11,8 @@ import {
   ParseUUIDPipe,
   UseInterceptors,
   UploadedFiles,
+  SetMetadata,
+  UseGuards,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -33,6 +35,7 @@ import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
 import { AuthById } from 'src/auth/decorators/authid.decorator';
+
 
 @ApiTags('Books')
 @Controller('books')
@@ -125,7 +128,6 @@ export class BooksController {
     return this.booksService.remove(id, req.user);
   }
 
-
  @Auth()
   @ApiOkResponse({ description: 'Success' })
   @ApiNotFoundResponse({ description: 'Not Found' })
@@ -135,5 +137,4 @@ export class BooksController {
   coderJhon()  {
     return this.booksService.coderJhon();
   }
-  
 }

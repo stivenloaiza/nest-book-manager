@@ -170,6 +170,7 @@ export class BooksService {
     }
   }
 
+
   @Auth()
   async coderJhon( ){
     //retornar mi nombre junto a mi frase favorita
@@ -177,5 +178,4 @@ export class BooksService {
       name: 'Jhon',
       phrase: 'I love traumaditas',
     }
-  }
 }
