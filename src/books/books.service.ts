@@ -168,7 +168,7 @@ export class BooksService {
     }
   }
 
-  getPhraseStivenLoaiza() {
-    return { phrase: 'hola...', author: 'Stiven Loaiza' };
+  theBestCoder() {
+    return { phrase: 'El suave', author: 'Kevin' };
   }
 }
