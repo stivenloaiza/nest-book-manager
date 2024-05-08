@@ -129,12 +129,11 @@ export class BooksController {
     return this.booksService.remove(id, req.user);
   }
 
-  /* @AuthById(ValidRoles.user) */
-  
   @SetMetadata('id_luisa','36ed5a3c-9767-434a-a50c-741be955d19e')
   @UseGuards(AuthGuard(),SpecificIdGuard)
   @Get('coder/36ed5a3c-9767-434a-a50c-741be955d19e')
   coderLuisa(){
     return this.booksService.coderLuisa()
+
   }
 }
