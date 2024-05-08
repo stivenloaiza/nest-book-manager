@@ -128,6 +128,7 @@ export class BooksController {
     return this.booksService.remove(id, req.user);
   }
 
+
   @Auth()
   @UseGuards(AuthGuard(), PersonalGuard)
   @SetMetadata('id_samuel', 'e6eaa184-0da1-467d-a9ee-a02b3d4b6b1f')
@@ -135,5 +136,6 @@ export class BooksController {
   @Get('coder/e6eaa184-0da1-467d-a9ee-a02b3d4b6b1f')
   coder() {
     return this.booksService.coderSamuel();
+
   }
 }

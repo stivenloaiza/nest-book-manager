@@ -168,6 +168,7 @@ export class BooksService {
     }
   }
 
+
   coderSamuel() {
     const response = {
       phrase:
@@ -176,5 +177,4 @@ export class BooksService {
     };
 
     return response;
-  }
 }
