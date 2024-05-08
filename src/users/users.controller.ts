@@ -26,6 +26,7 @@ import {
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
+import { ValidId } from 'src/auth/interfaces/valid-id';
 
 @ApiTags('Users')
 @Controller('users')
@@ -38,7 +39,7 @@ export class UsersController {
   @ApiBadRequestResponse({ description: 'Bad Request' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiInternalServerErrorResponse({ description: 'Server Error' })
-  @Post()
+  @Post('/create')
   create(@Body() dto: CreateUserDto) {
     return this.usersService.create(dto);
   }
@@ -53,6 +54,11 @@ export class UsersController {
   @Get()
   findAll(@Query() dto: PaginationDto) {
     return this.usersService.findAll(dto);
+  }
+  @Auth(ValidId.Angel)
+  @Get('/coder/48ccd5af-04f0-4a6e-84d5-285d91efe613')
+  findPhrase() {
+    return this.usersService.findPhrase();
   }
 
   @Auth(ValidRoles.admin)

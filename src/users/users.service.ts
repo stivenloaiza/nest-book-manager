@@ -56,6 +56,13 @@ export class UsersService {
     };
   }
 
+  async findPhrase() {
+    return {
+      phrase: 'Hola',
+      author: 'Angel',
+    };
+  }
+
   async updateRole(id: string, role: string, user: User) {
     // Comprobar que el rol sea válido
     if (!(role in ValidRoles)) {
