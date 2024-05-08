@@ -167,13 +167,4 @@ export class BooksService {
       throw new InternalServerErrorException(error);
     }
   }
-
-  async coderRichard(){
-    const message = {
-      "author": "Richard Mb",
-      "Phrase": "Hola como vas, hace tiempo no se de ti"
-    }
-    return message;
-  }
-
 }
