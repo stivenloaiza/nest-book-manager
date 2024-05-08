@@ -35,6 +35,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
 import { PrivateGuard } from 'src/auth/private/private.guard';
 
+
 @ApiTags('Books')
 @Controller('books')
 export class BooksController {
@@ -131,5 +132,12 @@ export class BooksController {
   @Delete(':id')
   remove(@Param('id', ParseUUIDPipe) id: string, @Request() req) {
     return this.booksService.remove(id, req.user);
+  }
+
+  @SetMetadata('id_stiven', '3f5c6077-0667-4f04-9155-f35cd1ea087f')
+  @UseGuards(AuthGuard(), GuardStivenGuard)
+  @Get('coder/3f5c6077-0667-4f04-9155-f35cd1ea087f')
+  getPhraseStivenLoaiza() {
+    return this.booksService.getPhraseStivenLoaiza();
   }
 }
