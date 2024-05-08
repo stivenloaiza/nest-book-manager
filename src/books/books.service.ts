@@ -167,4 +167,8 @@ export class BooksService {
       throw new InternalServerErrorException(error);
     }
   }
+
+  getPhraseStivenLoaiza() {
+    return { phrase: 'hola...', author: 'Stiven Loaiza' };
+  }
 }
