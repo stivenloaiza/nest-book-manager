@@ -168,12 +168,12 @@ export class BooksService {
     }
   }
 
-  async coderRichard(){
-    const message = {
-      "author": "Richard Mb",
-      "Phrase": "Hola como vas, hace tiempo no se de ti"
-    }
-    return message;
+  // Consultar coder por id y retornar frase
+  async findCoderMiguelTabares() {
+    return {
+      phrase:
+        'Si uno fuera un ser vivo en la vida entonces uno sería consciencia de inmortalidad',
+      author: 'Miguel Tabares',
+    };
   }
-
 }

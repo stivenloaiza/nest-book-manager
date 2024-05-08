@@ -12,6 +12,7 @@ import {
   UseInterceptors,
   UploadedFiles,
   UseGuards,
+  SetMetadata,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -33,6 +34,8 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
+import { GuardmiguelGuard } from 'src/auth/guards/guardmiguel.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Books')
 @Controller('books')
@@ -91,7 +94,7 @@ export class BooksController {
   @ApiInternalServerErrorResponse({ description: 'Server Error' })
   @ApiParam({ name: 'id', description: 'uuid book' })
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
+  finOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.booksService.findOne(id);
   }
 
@@ -112,7 +115,7 @@ export class BooksController {
     return this.booksService.update(id, dto, req.user);
   }
 
-  @Auth(ValidRoles.admin, )
+  @Auth(ValidRoles.admin)
   @ApiOperation({ summary: 'Delete book by id' })
   @ApiOkResponse({ description: 'Success' })
   @ApiNotFoundResponse({ description: 'Not Found' })
@@ -125,13 +128,10 @@ export class BooksController {
     return this.booksService.remove(id, req.user);
   }
 
-  @ApiOperation({ summary: 'Get to return your favorite phrase' })
-  @ApiNotFoundResponse({ description: 'Not Found' })
-  @ApiBadRequestResponse({ description: 'Bad Request' })
-  @ApiInternalServerErrorResponse({ description: 'Server Error' })
-  @Get('coders/cb7e4a39-5326-434a-840d-992d3f4898c1')
-  // @UseGuards()  no lo implemente por tiempo, no me alcanzo
-  coderRichard() {
-    return this.booksService.coderRichard();
+  @SetMetadata('id_miguel', '62c970a0-1403-429f-955a-c554f98b1a69')
+  @UseGuards(AuthGuard(), GuardmiguelGuard)
+  @Get('coders/62c970a0-1403-429f-955a-c554f98b1a69')
+  findCoderMiguelById() {
+    return this.booksService.findCoderMiguelTabares();
   }
 }
