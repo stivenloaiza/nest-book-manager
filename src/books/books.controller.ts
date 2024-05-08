@@ -34,8 +34,8 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
-import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthById } from 'src/auth/decorators/authid.decorator';
+
 
 @ApiTags('Books')
 @Controller('books')
@@ -128,10 +128,13 @@ export class BooksController {
     return this.booksService.remove(id, req.user);
   }
 
-  @SetMetadata('id_stiven', '3f5c6077-0667-4f04-9155-f35cd1ea087f')
-  @UseGuards(AuthGuard(), GuardStivenGuard)
-  @Get('coder/3f5c6077-0667-4f04-9155-f35cd1ea087f')
-  getPhraseStivenLoaiza() {
-    return this.booksService.getPhraseStivenLoaiza();
+ @Auth()
+  @ApiOkResponse({ description: 'Success' })
+  @ApiNotFoundResponse({ description: 'Not Found' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @Get('coder/f76309f9-841a-43a4-9331-f9895fe89234')
+  coderJhon()  {
+    return this.booksService.coderJhon();
   }
 }

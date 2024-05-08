@@ -14,6 +14,8 @@ import { UploadFilesDto } from './dto/upload-files.dto';
 import { Book } from './entities/book.entity';
 import { User } from 'src/users/entities/user.entity';
 import { BookFile } from './entities/book-file.entity';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 
 @Injectable()
 export class BooksService {
@@ -168,7 +170,12 @@ export class BooksService {
     }
   }
 
-  getPhraseStivenLoaiza() {
-    return { phrase: 'hola...', author: 'Stiven Loaiza' };
-  }
+
+  @Auth()
+  async coderJhon( ){
+    //retornar mi nombre junto a mi frase favorita
+    return {
+      name: 'Jhon',
+      phrase: 'I love traumaditas',
+    }
 }
