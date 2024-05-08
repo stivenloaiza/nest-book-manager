@@ -19,10 +19,10 @@ export class UserIdGuard implements CanActivate {
 
     try {
       const decodedToken = await this.jwtservice.verifyAsync(token);
-      console.log(decodedToken.id); 
+       
       
       const requestedUserId= req.params.id;
-      console.log(requestedUserId);
+      
 
       if (decodedToken.id !== requestedUserId) {
         return false; 
