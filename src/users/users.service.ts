@@ -37,6 +37,21 @@ export class UsersService {
     }
   }
 
+  async findById(id: string){
+    const userFind = await this.userRepository.findOne({where:{id: id}})
+    if(!userFind){
+      throw new NotFoundException('USER NOT FOUND')
+    }
+    return userFind
+  }
+
+  async giveData(){
+    return {
+      "phrase":"Mi moto alpina derrapante",
+      "author":"Angel"
+    }
+  }
+
   async findAll(dto: PaginationDto) {
     const { limit = +process.env.LIMIT, page = 1 } = dto;
 
