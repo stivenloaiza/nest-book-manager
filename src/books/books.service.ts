@@ -167,4 +167,14 @@ export class BooksService {
       throw new InternalServerErrorException(error);
     }
   }
+
+  coderSamuel() {
+    const response = {
+      phrase:
+        'Si no compartes el dolor de alguien, nunca podrás entender a los demás',
+      author: 'Nagato',
+    };
+
+    return response;
+  }
 }
