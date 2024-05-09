@@ -167,16 +167,11 @@ export class BooksService {
       throw new InternalServerErrorException(error);
     }
   }
-
-  getPhraseStivenLoaiza() {
-    return { phrase: 'hola...', author: 'Stiven Loaiza' };
-  }
-
-  async coderAngelica() {
-    const response = {
-      phrase: 'hola...',
-      author: 'Angelica',
+  async functionCoder(){
+    const res = {
+      phrase: 'Soy estudiante en Riwi',
+      author: 'Ana Sofia Castrillon',
     };
-    return response;
+    return res
   }
 }

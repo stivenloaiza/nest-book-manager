@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "46b470c5-beac-4dc7-b459-8ea30adeff36",
+		"name": "personalizeGuard",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33481572"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   { \"email\": \"anacaszapata1@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3005/api/v1/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3005",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "phrase",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkYmY4OTZmLTI0YzUtNDQxNC1hYzhjLWViNGU0YWU3ZDUzOSIsImlhdCI6MTcxNTE4NjY5NCwiZXhwIjoxNzE1MjI5ODk0fQ.opqSz9HN7RpQoaZnReJCtvs5V6MY1DI3bIs9TclSxXE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   { \"email\": \"anacaszapata1@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3005/api/v1/books/coder/edbf896f-24c5-4414-ac8c-eb4e4ae7d539",
+					"host": [
+						"localhost"
+					],
+					"port": "3005",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"coder",
+						"edbf896f-24c5-4414-ac8c-eb4e4ae7d539"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
