@@ -11,6 +11,8 @@ import {
   ParseUUIDPipe,
   UseInterceptors,
   UploadedFiles,
+  SetMetadata,
+  UseGuards,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -32,6 +34,10 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
+import { message } from 'aws-sdk/clients/sns';
+import { UserIdMatchGuard } from 'src/auth/guards/user-role.guard';
+import { AuthGuard } from '@nestjs/passport';
+import { GuardAlexanderGuard } from 'src/auth/guards/guard-alexH.guard';
 
 @ApiTags('Books')
 @Controller('books')
@@ -123,4 +129,13 @@ export class BooksController {
   remove(@Param('id', ParseUUIDPipe) id: string, @Request() req) {
     return this.booksService.remove(id, req.user);
   }
+
+
+@SetMetadata('id_alexHernandez', '7989b6d6-a4e1-40ea-8b82-e66c83002f8b')
+@UseGuards(AuthGuard(), GuardAlexanderGuard)
+@Get('coders/7989b6d6-a4e1-40ea-8b82-e66c83002f8b')
+findAlexander(){
+  return this.booksService.findCoder()
+}
+
 }

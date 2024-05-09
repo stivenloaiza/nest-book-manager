@@ -17,6 +17,9 @@ import { BookFile } from './entities/book-file.entity';
 
 @Injectable()
 export class BooksService {
+  findCoder() {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectRepository(Book)
     private readonly bookRepository: Repository<Book>,
@@ -166,5 +169,13 @@ export class BooksService {
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
+  }
+
+  async codersAlexanderHernandez() {
+
+    return {
+      phrase: 'Hola...',
+      author: 'Alexander Hernandez',
+    };
   }
 }
