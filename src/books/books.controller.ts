@@ -13,6 +13,7 @@ import {
   UploadedFiles,
   SetMetadata,
   UseGuards,
+  UsePipes,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -37,6 +38,8 @@ import { UploadFilesDto } from './dto/upload-files.dto';
 import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
+import { SentimientoValidationPipe } from 'src/pipes/sentimiento.pipes';
+import { NivelValidationPipe } from 'src/pipes/nivelValidation.pipes';
 
 @ApiTags('Books')
 @Controller('books')
@@ -126,6 +129,8 @@ export class BooksController {
   @ApiParam({ name: 'id', description: 'uuid book' })
   @Delete(':id')
   remove(@Param('id', ParseUUIDPipe) id: string, @Request() req) {
+    console.log("remove4");
+    
     return this.booksService.remove(id, req.user);
   }
 
@@ -141,5 +146,15 @@ export class BooksController {
   @Get('coder/90b3a78d-8ca7-41bf-9407-b8c191bb6868')
   getCoder() {
     return this.booksService.coderAngelica();
-  }
+  } 
+  @Get('phrase/coder')
+  getPhrase(
+    @Query('sentimiento',SentimientoValidationPipe) sentimiento: string,
+    @Query('nivel', NivelValidationPipe) nivel: number,
+  ) {
+    console.log("hola");
+    
+    return this.booksService.getPhraseLuisa(sentimiento, nivel);
+  } 
+
 }
