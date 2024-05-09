@@ -177,5 +177,17 @@ export class BooksService {
       phrase: 'Hola...',
       author: 'Alexander Hernandez',
     };
+
+  getPhraseStivenLoaiza() {
+    return { phrase: 'hola...', author: 'Stiven Loaiza' };
+  }
+
+  async coderAngelica() {
+    const response = {
+      phrase: 'hola...',
+      author: 'Angelica',
+    };
+    return response;
+
   }
 }

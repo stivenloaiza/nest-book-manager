@@ -34,10 +34,11 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
-import { message } from 'aws-sdk/clients/sns';
-import { UserIdMatchGuard } from 'src/auth/guards/user-role.guard';
-import { AuthGuard } from '@nestjs/passport';
 import { GuardAlexanderGuard } from 'src/auth/guards/guard-alexH.guard';
+import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
+import { AuthGuard } from '@nestjs/passport';
+import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
+
 
 @ApiTags('Books')
 @Controller('books')
@@ -137,5 +138,20 @@ export class BooksController {
 findAlexander(){
   return this.booksService.findCoder()
 }
+
+
+  @SetMetadata('id_stiven', '3f5c6077-0667-4f04-9155-f35cd1ea087f')
+  @UseGuards(AuthGuard(), GuardStivenGuard)
+  @Get('coder/3f5c6077-0667-4f04-9155-f35cd1ea087f')
+  getPhraseStivenLoaiza() {
+    return this.booksService.getPhraseStivenLoaiza();
+  }
+
+  @Auth()
+  @UseGuards(CoderAuthGuard)
+  @Get('coder/90b3a78d-8ca7-41bf-9407-b8c191bb6868')
+  getCoder() {
+    return this.booksService.coderAngelica();
+  }
 
 }
