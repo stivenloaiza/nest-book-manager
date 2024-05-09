@@ -168,6 +168,10 @@ export class BooksService {
     }
   }
 
+  getPhraseStivenLoaiza() {
+    return { phrase: 'hola...', author: 'Stiven Loaiza' };
+  }
+
   async coderAngelica() {
     const response = {
       phrase: 'hola...',
