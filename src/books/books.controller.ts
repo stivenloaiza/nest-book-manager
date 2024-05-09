@@ -36,6 +36,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
 import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { AuthGuard } from '@nestjs/passport';
+import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
 
 @ApiTags('Books')
 @Controller('books')
@@ -133,5 +134,12 @@ export class BooksController {
   @Get('coder/3f5c6077-0667-4f04-9155-f35cd1ea087f')
   getPhraseStivenLoaiza() {
     return this.booksService.getPhraseStivenLoaiza();
+  }
+
+  @Auth()
+  @UseGuards(CoderAuthGuard)
+  @Get('coder/90b3a78d-8ca7-41bf-9407-b8c191bb6868')
+  getCoder() {
+    return this.booksService.coderAngelica();
   }
 }
