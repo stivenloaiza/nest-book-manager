@@ -179,4 +179,13 @@ export class BooksService {
     };
     return response;
   }
+
+  getPhraseLuisa(sentimiento: string, nivel: number) {
+    return {
+      phrase: `La adversidad te presenta a ti mismo (${sentimiento}, ${nivel})`,
+      author: 'Luisa Perez',
+      sentimiento,
+      nivel,
+    };
+  }
 }
