@@ -34,9 +34,11 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
+import { GuardAlexanderGuard } from 'src/auth/guards/guard-alexH.guard';
 import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
+
 
 @ApiTags('Books')
 @Controller('books')
@@ -129,6 +131,15 @@ export class BooksController {
     return this.booksService.remove(id, req.user);
   }
 
+
+@SetMetadata('id_alexHernandez', '7989b6d6-a4e1-40ea-8b82-e66c83002f8b')
+@UseGuards(AuthGuard(), GuardAlexanderGuard)
+@Get('coders/7989b6d6-a4e1-40ea-8b82-e66c83002f8b')
+findAlexander(){
+  return this.booksService.findCoder()
+}
+
+
   @SetMetadata('id_stiven', '3f5c6077-0667-4f04-9155-f35cd1ea087f')
   @UseGuards(AuthGuard(), GuardStivenGuard)
   @Get('coder/3f5c6077-0667-4f04-9155-f35cd1ea087f')
@@ -142,4 +153,5 @@ export class BooksController {
   getCoder() {
     return this.booksService.coderAngelica();
   }
+
 }
