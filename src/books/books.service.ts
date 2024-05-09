@@ -169,10 +169,10 @@ export class BooksService {
   }
 
   // Consultar coder por id y retornar frase
-  async findCoderMiguelTabares() {
+  async findCoderMiguelTabares(feeling, value) {
     return {
       phrase:
-        'Si uno fuera un ser vivo en la vida entonces uno sería consciencia de inmortalidad',
+        'El amor, por su esencia y su primer impulso, se mueve hacia la salud, la fuerza y la belleza',
       author: 'Miguel Tabares',
     };
   }

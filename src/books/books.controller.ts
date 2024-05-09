@@ -13,6 +13,7 @@ import {
   UploadedFiles,
   UseGuards,
   SetMetadata,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -36,6 +37,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
 import { GuardmiguelGuard } from 'src/auth/guards/guardmiguel.guard';
 import { AuthGuard } from '@nestjs/passport';
+import { ValidateFeeling } from './pipes/personalized-pipe/personalized-pipe.pipe';
 
 @ApiTags('Books')
 @Controller('books')
@@ -130,8 +132,11 @@ export class BooksController {
 
   @SetMetadata('id_miguel', '62c970a0-1403-429f-955a-c554f98b1a69')
   @UseGuards(AuthGuard(), GuardmiguelGuard)
-  @Get('coders/62c970a0-1403-429f-955a-c554f98b1a69')
-  findCoderMiguelById() {
-    return this.booksService.findCoderMiguelTabares();
+  @Get(`coders/62c970a0-1403-429f-955a-c554f98b1a69`)
+  findCoderMiguelById(
+    @Query('feeling', ValidateFeeling) feeling: string,
+    @Query('value', ParseIntPipe) value: number,
+  ) {
+    return this.booksService.findCoderMiguelTabares(feeling, value);
   }
 }
