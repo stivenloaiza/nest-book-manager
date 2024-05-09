@@ -11,8 +11,8 @@ import {
   ParseUUIDPipe,
   UseInterceptors,
   UploadedFiles,
-  SetMetadata,
   UseGuards,
+  SetMetadata,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -34,9 +34,8 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
-import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
+import { PersonalizeGuard } from 'src/auth/guards/guard-ana.guard';
 import { AuthGuard } from '@nestjs/passport';
-import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
 
 @ApiTags('Books')
 @Controller('books')
@@ -129,17 +128,10 @@ export class BooksController {
     return this.booksService.remove(id, req.user);
   }
 
-  @SetMetadata('id_stiven', '3f5c6077-0667-4f04-9155-f35cd1ea087f')
-  @UseGuards(AuthGuard(), GuardStivenGuard)
-  @Get('coder/3f5c6077-0667-4f04-9155-f35cd1ea087f')
-  getPhraseStivenLoaiza() {
-    return this.booksService.getPhraseStivenLoaiza();
-  }
-
-  @Auth()
-  @UseGuards(CoderAuthGuard)
-  @Get('coder/90b3a78d-8ca7-41bf-9407-b8c191bb6868')
-  getCoder() {
-    return this.booksService.coderAngelica();
-  }
+  @SetMetadata('id_sofia','edbf896f-24c5-4414-ac8c-eb4e4ae7d539')
+  @UseGuards(AuthGuard(),PersonalizeGuard)
+        @Get('coder/edbf896f-24c5-4414-ac8c-eb4e4ae7d539')
+        functionCoder(){
+          return this.booksService.functionCoder();
+        }
 }
