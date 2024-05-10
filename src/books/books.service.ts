@@ -168,8 +168,11 @@ export class BooksService {
     }
   }
 
-  getPhraseStivenLoaiza() {
-    return { phrase: 'hola...', author: 'Stiven Loaiza' };
+
+
+  async coderLuisa(){
+    return {phrase:"La adversidad te presenta a ti mismo", author: "Luisa Perez"}
+
   }
 
   async coderAngelica() {

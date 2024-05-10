@@ -34,9 +34,10 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
-import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
+import { SpecificIdGuard } from 'src/auth/guards/user-id.guards';
 import { AuthGuard } from '@nestjs/passport';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
+
 
 @ApiTags('Books')
 @Controller('books')
@@ -129,11 +130,12 @@ export class BooksController {
     return this.booksService.remove(id, req.user);
   }
 
-  @SetMetadata('id_stiven', '3f5c6077-0667-4f04-9155-f35cd1ea087f')
-  @UseGuards(AuthGuard(), GuardStivenGuard)
-  @Get('coder/3f5c6077-0667-4f04-9155-f35cd1ea087f')
-  getPhraseStivenLoaiza() {
-    return this.booksService.getPhraseStivenLoaiza();
+  @SetMetadata('id_luisa','36ed5a3c-9767-434a-a50c-741be955d19e')
+  @UseGuards(AuthGuard(),SpecificIdGuard)
+  @Get('coder/36ed5a3c-9767-434a-a50c-741be955d19e')
+  coderLuisa(){
+    return this.booksService.coderLuisa()
+
   }
 
   @Auth()

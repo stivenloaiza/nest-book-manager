@@ -43,7 +43,7 @@ export class UsersController {
     return this.usersService.create(dto);
   }
 
-  @Auth(ValidRoles.admin)
+  @Auth(ValidRoles.user)
   @ApiOperation({ summary: 'Get all users' })
   @ApiOkResponse({ description: 'Success' })
   @ApiNotFoundResponse({ description: 'Not Found' })
