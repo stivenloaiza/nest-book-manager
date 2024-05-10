@@ -174,7 +174,17 @@ export class BooksService {
         'Si no compartes el dolor de alguien, nunca podrás entender a los demás',
       author: 'Nagato',
     };
+    return response;
+  }
+  getPhraseStivenLoaiza() {
+    return { phrase: 'hola...', author: 'Stiven Loaiza' };
+  }
 
+  async coderAngelica() {
+    const response = {
+      phrase: 'hola...',
+      author: 'Angelica',
+    };
     return response;
   }
 }
