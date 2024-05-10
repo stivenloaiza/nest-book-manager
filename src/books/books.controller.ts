@@ -13,6 +13,8 @@ import {
   UploadedFiles,
   SetMetadata,
   UseGuards,
+  UsePipes,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -37,6 +39,7 @@ import { UploadFilesDto } from './dto/upload-files.dto';
 import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
+import { ValidateFeelings } from './pipes/pipes.pipe';
 
 @ApiTags('Books')
 @Controller('books')
@@ -141,5 +144,22 @@ export class BooksController {
   @Get('coder/90b3a78d-8ca7-41bf-9407-b8c191bb6868')
   getCoder() {
     return this.booksService.coderAngelica();
+  }
+
+  @Auth()
+  @ApiOperation({ summary: 'get feeling phrase' })
+  @ApiOkResponse({ description: 'Success' })
+  @ApiNotFoundResponse({ description: 'Not Found' })
+  @ApiBadRequestResponse({ description: 'Bad Request' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiInternalServerErrorResponse({ description: 'Server Error' })
+  @Get('coder/776cb98f-6218-4001-8432-a18c13cc9104')
+  @UsePipes(new ValidateFeelings(), ParseIntPipe)
+  findCoder(@Query('feeling') feeling: string, @Query('level') level: number) {
+    return {
+      feeling,
+      level,
+      phrase: this.booksService.BookCoder(),
+    };
   }
 }

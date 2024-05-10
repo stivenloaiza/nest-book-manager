@@ -179,4 +179,13 @@ export class BooksService {
     };
     return response;
   }
+
+  async BookCoder() {
+    const book = {
+      phrase:
+        'Happiness is not found at the end of the road, but in the journey itself.',
+      author: 'Paulo Coelho',
+    };
+    return book;
+  }
 }
