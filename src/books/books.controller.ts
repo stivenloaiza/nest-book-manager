@@ -38,6 +38,10 @@ import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
 import { GuardDaniel } from '../auth/guards/guard-danielj.guard';
+import {
+  SentimentLevelPipe,
+  SentimentPipe,
+} from 'src/common/pipes/pipe-sentimientos';
 
 @ApiTags('Books')
 @Controller('books')
@@ -144,10 +148,23 @@ export class BooksController {
     return this.booksService.coderAngelica();
   }
 
+  // add guard daniel jimenez
   @SetMetadata('id_Daniel', '31ad6357-3639-4209-a38a-f54826000f96')
   @UseGuards(AuthGuard(), GuardDaniel)
   @Get('coder/31ad6357-3639-4209-a38a-f54826000f96')
   getDanielj() {
     return this.booksService.getDaneilj();
+  }
+  // add pipe daniel jimenez
+
+  @Get()
+  getDanieljpipe(
+    @Query('sentiment', SentimentPipe) sentiment: string,
+    @Query('level', SentimentLevelPipe) level: number,
+  ) {
+    return (
+      this.booksService.getDaneilj(),
+      `Received sentiment: ${sentiment}, level: ${level}`
+    );
   }
 }
