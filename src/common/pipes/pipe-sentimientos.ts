@@ -21,17 +21,3 @@ export class SentimentPipe implements PipeTransform {
     return sentiment;
   }
 }
-
-export class SentimentLevelPipe implements PipeTransform {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  transform(value: any, metadata: ArgumentMetadata) {
-    const validLevels = [1, 2, 3, 4, 5]; // Define los niveles válidos
-    const level = value.parseInt();
-
-    if (!validLevels.includes(level)) {
-      throw new BadRequestException('Level must be one of: low, medium, high');
-    }
-
-    return level;
-  }
-}

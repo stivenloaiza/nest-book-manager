@@ -13,6 +13,7 @@ import {
   UploadedFiles,
   SetMetadata,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -38,10 +39,7 @@ import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
 import { GuardDaniel } from '../auth/guards/guard-danielj.guard';
-import {
-  SentimentLevelPipe,
-  SentimentPipe,
-} from 'src/common/pipes/pipe-sentimientos';
+import { SentimentPipe } from 'src/common/pipes/pipe-sentimientos';
 
 @ApiTags('Books')
 @Controller('books')
@@ -160,7 +158,7 @@ export class BooksController {
   @Get()
   getDanieljpipe(
     @Query('sentiment', SentimentPipe) sentiment: string,
-    @Query('level', SentimentLevelPipe) level: number,
+    @Query('level', ParseIntPipe) level: number,
   ) {
     return (
       this.booksService.getDaneilj(),
