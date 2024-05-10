@@ -12,6 +12,7 @@ import {
   UseInterceptors,
   UploadedFiles,
   UseGuards,
+  SetMetadata,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -33,7 +34,9 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
-import { PrivateGuard } from 'src/auth/private/private.guard';
+import { PrivateGuardCamilo } from 'src/auth/guards/private.guard';
+import { GuardStivenGuard } from 'src/auth/guards/guard-stiven.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 
 @ApiTags('Books')
@@ -42,7 +45,7 @@ export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Auth()
-  @UseGuards(PrivateGuard)
+  @UseGuards(PrivateGuardCamilo)
   @Get('coder/49f67bd5-402f-408e-802f-5f113af260c5')
   async coder() {
     return await this.booksService.cristian();
