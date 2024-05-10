@@ -155,7 +155,7 @@ export class BooksController {
   }
   // add pipe daniel jimenez
 
-  @Get()
+  @Get('daniel/pipes')
   getDanieljpipe(
     @Query('sentiment', SentimentPipe) sentiment: string,
     @Query('level', ParseIntPipe) level: number,
