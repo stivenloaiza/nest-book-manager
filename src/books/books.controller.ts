@@ -39,7 +39,8 @@ import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
 import { ValidateFeelingsPipe } from 'src/auth/pipes/validate-feelings.pipe';
-import { UserIdGuard } from 'src/auth/guards/iduser.guard';
+import { UserIdGuard } from 'src/auth/guards/id-user.guard';
+
 
 @ApiTags('Books')
 @Controller('books')
