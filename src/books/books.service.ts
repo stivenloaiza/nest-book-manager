@@ -24,6 +24,32 @@ export class BooksService {
     private readonly fileRepository: Repository<BookFile>,
   ) {}
 
+  async findPhraseById(id:string,sentimiento:string,nivel:number){
+    
+    const frasesRelacionadas: Record<string, string> = {
+      felicidad: 'Estoy contento de que estés feliz.',
+      tristeza: 'Lo siento mucho por lo que estás pasando.',
+      miedo: 'No te preocupes, estoy aquí para ayudarte a superar tus miedos.',
+      enojo: 'Entiendo que estés enojado, pero tratemos de resolverlo pacíficamente.',
+      amor: 'El amor es hermoso, ¿verdad?'
+  };
+
+    const sentimientoLowerCase = sentimiento.toLowerCase();
+
+    const frase = frasesRelacionadas[sentimientoLowerCase];
+  
+  
+    return {
+            sentimiento,
+            nivel,
+            frase
+        };
+
+
+    
+
+  }
+
   async create(dto: CreateBookDto, user: User) {
     // Comprobar que la fecha de publicación sea válida
     if (dto.publicationDate && new Date(dto.publicationDate) > new Date()) {

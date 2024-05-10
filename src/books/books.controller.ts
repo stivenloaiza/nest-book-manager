@@ -13,6 +13,7 @@ import {
   UploadedFiles,
   SetMetadata,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -37,11 +38,14 @@ import { UploadFilesDto } from './dto/upload-files.dto';
 import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
+import { ValidateFeelingsPipe } from 'src/auth/pipes/validate-feelings.pipe';
+import { UserIdGuard } from 'src/auth/guards/iduser.guard';
 
 @ApiTags('Books')
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
+
 
   @Auth(ValidRoles.admin)
   @ApiOperation({ summary: 'Create book' })
@@ -141,5 +145,14 @@ export class BooksController {
   @Get('coder/90b3a78d-8ca7-41bf-9407-b8c191bb6868')
   getCoder() {
     return this.booksService.coderAngelica();
+  }
+
+  @Auth()
+  @UseGuards(UserIdGuard)
+  @Get('coders/:id')
+  findPhraseById(@Query('sentimiento', ValidateFeelingsPipe) sentimiento: string, 
+  @Query('nivel', ParseIntPipe) nivel: number, 
+  @Param('id') id: string){
+    return this.booksService.findPhraseById(id,sentimiento, nivel);
   }
 }
