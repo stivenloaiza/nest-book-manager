@@ -168,15 +168,28 @@ export class BooksService {
     }
   }
 
-
-  coderSamuel() {
-    const response = {
-      phrase:
-        'Si no compartes el dolor de alguien, nunca podrás entender a los demás',
-      author: 'Nagato',
-    };
-    return response;
+  coderSamuel(feeling: string, level: number) {
+    let result = {};
+    if (feeling === 'amor') {
+      if (level >= 1) {
+        result = { phrase: 'amor nivel 1 o mas', author: 'Stiven Loaiza' };
+      } else {
+        result = { phrase: 'cero amor', author: 'Stiven Loaiza' };
+      }
+    } else {
+      if (level >= 1) {
+        result = {
+          phrase: 'cualquier sentido nivel 1 o mas',
+          author: 'Stiven Loaiza',
+        };
+      } else {
+        result = { phrase: 'nada', author: 'Stiven Loaiza' };
+      }
+    }
+    result = { ...result, feeling: feeling, level: level };
+    return result;
   }
+
   getPhraseStivenLoaiza() {
     return { phrase: 'hola...', author: 'Stiven Loaiza' };
   }

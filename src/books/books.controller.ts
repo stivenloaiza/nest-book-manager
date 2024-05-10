@@ -13,6 +13,7 @@ import {
   UploadedFiles,
   SetMetadata,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -38,6 +39,7 @@ import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
 import { PersonalGuard } from 'src/auth/guards/user-custom.guard';
 import { AuthGuard } from '@nestjs/passport';
+import { FeelingPipe } from './pipes/feeling.pipe';
 
 @ApiTags('Books')
 @Controller('books')
@@ -135,8 +137,11 @@ export class BooksController {
   @SetMetadata('id_samuel', 'e6eaa184-0da1-467d-a9ee-a02b3d4b6b1f')
   @ApiOperation({ summary: 'Get coder phrase' })
   @Get('coder/e6eaa184-0da1-467d-a9ee-a02b3d4b6b1f')
-  coder() {
-    return this.booksService.coderSamuel();
+  coder(
+    @Query('feeling', FeelingPipe) feeling: string,
+    @Query('level', ParseIntPipe) level: number,
+  ) {
+    return this.booksService.coderSamuel(feeling, level);
   }
 
   @SetMetadata('id_stiven', '3f5c6077-0667-4f04-9155-f35cd1ea087f')
