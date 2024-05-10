@@ -13,6 +13,7 @@ import {
   UploadedFiles,
   SetMetadata,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -37,6 +38,8 @@ import { UploadFilesDto } from './dto/upload-files.dto';
 import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
+import { GuardDaniel } from '../auth/guards/guard-danielj.guard';
+import { SentimentPipe } from 'src/common/pipes/pipe-sentimientos';
 
 @ApiTags('Books')
 @Controller('books')
@@ -141,5 +144,25 @@ export class BooksController {
   @Get('coder/90b3a78d-8ca7-41bf-9407-b8c191bb6868')
   getCoder() {
     return this.booksService.coderAngelica();
+  }
+
+  // add guard daniel jimenez
+  @SetMetadata('id_Daniel', '31ad6357-3639-4209-a38a-f54826000f96')
+  @UseGuards(AuthGuard(), GuardDaniel)
+  @Get('coder/31ad6357-3639-4209-a38a-f54826000f96')
+  getDanielj() {
+    return this.booksService.getDaneilj();
+  }
+  // add pipe daniel jimenez
+
+  @Get('daniel/pipes')
+  getDanieljpipe(
+    @Query('sentiment', SentimentPipe) sentiment: string,
+    @Query('level', ParseIntPipe) level: number,
+  ) {
+    return (
+      this.booksService.getDaneilj(),
+      `Received sentiment: ${sentiment}, level: ${level}`
+    );
   }
 }

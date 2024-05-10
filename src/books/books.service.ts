@@ -179,4 +179,11 @@ export class BooksService {
     };
     return response;
   }
+
+  getDaneilj() {
+    return {
+      phrase: 'no hagas lo que no quieras que te hagan',
+      author: 'anonimo',
+    };
+  }
 }
