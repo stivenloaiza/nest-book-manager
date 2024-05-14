@@ -168,7 +168,12 @@ export class BooksService {
     }
   }
 
-  getPhraseStivenLoaiza(feeling: string, level: number) {
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async getPhraseStivenLoaiza(feeling: string, level: number) {
+    //await this.delay(30000);
     let result = {};
     if (feeling === 'amor') {
       if (level >= 1) {

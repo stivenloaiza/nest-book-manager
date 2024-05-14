@@ -39,6 +39,7 @@ import { GuardStivenGuard } from '../auth/guards/guard-stiven.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { CoderAuthGuard } from 'src/auth/guards/user-id.guard';
 import { FeelingPipePipe } from './pipes/feeling.pipe.pipe';
+import { TimeoutStivenInterceptor } from './interceptors/timeout_stiven.interceptor';
 
 @ApiTags('Books')
 @Controller('books')
@@ -131,6 +132,7 @@ export class BooksController {
     return this.booksService.remove(id, req.user);
   }
 
+  @UseInterceptors(TimeoutStivenInterceptor)
   @SetMetadata('id_stiven', '3f5c6077-0667-4f04-9155-f35cd1ea087f')
   @UseGuards(AuthGuard(), GuardStivenGuard)
   @Get('coder/3f5c6077-0667-4f04-9155-f35cd1ea087f')
