@@ -32,6 +32,7 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
+import { interceptor } from './intercept/intercept.service';
 
 @ApiTags('Books')
 @Controller('books')
@@ -69,14 +70,14 @@ export class BooksController {
     return this.booksService.upload(id, dto, files, req.user);
   }
 
-  @Auth()
   @ApiOperation({ summary: 'Get all books' })
   @ApiOkResponse({ description: 'Success' })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @ApiBadRequestResponse({ description: 'Bad Request' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiInternalServerErrorResponse({ description: 'Server Error' })
-  @Get()
+  @UseInterceptors(interceptor)
+  @Get('/get')
   findAll(@Query() dto: PaginationDto) {
     return this.booksService.findAll(dto);
   }

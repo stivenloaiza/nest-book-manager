@@ -1,5 +1,7 @@
 import {
   BadRequestException,
+  CallHandler,
+  ExecutionContext,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -14,6 +16,7 @@ import { UploadFilesDto } from './dto/upload-files.dto';
 import { Book } from './entities/book.entity';
 import { User } from 'src/users/entities/user.entity';
 import { BookFile } from './entities/book-file.entity';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class BooksService {
