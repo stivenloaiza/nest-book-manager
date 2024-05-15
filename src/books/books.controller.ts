@@ -11,6 +11,8 @@ import {
   ParseUUIDPipe,
   UseInterceptors,
   UploadedFiles,
+  UseGuards,
+  SetMetadata,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -32,11 +34,22 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
+import { PrivateGuardCamilo } from 'src/auth/guards/private.guard';
+import { GuardStivenGuard } from 'src/auth/guards/guard-stiven.guard';
+import { AuthGuard } from '@nestjs/passport';
+
 
 @ApiTags('Books')
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
+
+  @Auth()
+  @UseGuards(PrivateGuardCamilo)
+  @Get('coder/49f67bd5-402f-408e-802f-5f113af260c5')
+  async coder() {
+    return await this.booksService.cristian();
+  }
 
   @Auth(ValidRoles.admin)
   @ApiOperation({ summary: 'Create book' })
@@ -122,5 +135,12 @@ export class BooksController {
   @Delete(':id')
   remove(@Param('id', ParseUUIDPipe) id: string, @Request() req) {
     return this.booksService.remove(id, req.user);
+  }
+
+  @SetMetadata('id_stiven', '3f5c6077-0667-4f04-9155-f35cd1ea087f')
+  @UseGuards(AuthGuard(), GuardStivenGuard)
+  @Get('coder/3f5c6077-0667-4f04-9155-f35cd1ea087f')
+  getPhraseStivenLoaiza() {
+    return this.booksService.getPhraseStivenLoaiza();
   }
 }

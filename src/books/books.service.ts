@@ -1,3 +1,4 @@
+import { User } from './../users/entities/user.entity';
 import {
   BadRequestException,
   Injectable,
@@ -12,7 +13,6 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { UploadFilesDto } from './dto/upload-files.dto';
 import { Book } from './entities/book.entity';
-import { User } from 'src/users/entities/user.entity';
 import { BookFile } from './entities/book-file.entity';
 
 @Injectable()
@@ -23,6 +23,16 @@ export class BooksService {
     @InjectRepository(BookFile)
     private readonly fileRepository: Repository<BookFile>,
   ) {}
+
+  cristian() {
+    const response = {
+      phrase:
+        'Cuando la vida te ofrece una oportunidad única, no la dejes escapar. Aprovecha cada momento como si fuera el último.',
+      author: 'cristian',
+    };
+
+    return response;
+  }
 
   async create(dto: CreateBookDto, user: User) {
     // Comprobar que la fecha de publicación sea válida
@@ -166,5 +176,9 @@ export class BooksService {
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
+  }
+
+  getPhraseStivenLoaiza() {
+    return { phrase: 'hola...', author: 'Stiven Loaiza' };
   }
 }
