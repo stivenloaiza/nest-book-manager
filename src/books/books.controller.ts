@@ -11,6 +11,8 @@ import {
   ParseUUIDPipe,
   UseInterceptors,
   UploadedFiles,
+  UseGuards,
+  SetMetadata,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -32,6 +34,11 @@ import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { UploadFilesDto } from './dto/upload-files.dto';
+/* import {personalizado} from '../../dist/auth/guards/personalizado/personalizado.guard' */
+import { get } from 'https';
+import { AuthGuard } from '@nestjs/passport';
+import {GuardDeibyGuard} from '../auth/guards/guard-deiby.guard'
+import { PipesPipe } from 'src/auth/pipes/pipes.pipe';
 
 @ApiTags('Books')
 @Controller('books')
@@ -123,4 +130,20 @@ export class BooksController {
   remove(@Param('id', ParseUUIDPipe) id: string, @Request() req) {
     return this.booksService.remove(id, req.user);
   }
+
+  
+  @SetMetadata('id_deiby', 'a0a59348-1b2d-45a5-8000-b2d4dd0488d4')
+  @UseGuards(AuthGuard(), GuardDeibyGuard)
+  @Get('coders/a0a59348-1b2d-45a5-8000-b2d4dd0488d4')
+  findDeiby(){
+    return this.booksService.findCoder()
+  }
+  
+  @Get('colorNivel')
+  pipeColorNivel(@Query('sentimiento',PipesPipe) sentimiento: string, @Query('nivel',PipesPipe) level: number){
+    return this.booksService.getPrasheDeiby(sentimiento, level)
+  }
+
 }
+
+  

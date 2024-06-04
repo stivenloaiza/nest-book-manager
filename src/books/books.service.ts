@@ -167,4 +167,18 @@ export class BooksService {
       throw new InternalServerErrorException(error);
     }
   }
+  findCoder() {
+    return {
+      author: "deiby",
+      prashe: "keep what you have built up here"
+    };
+  }
+
+
+  getPrasheDeiby(sentimiento: string, level: number) {
+    return {
+      phrase: `te ilumina hoy: (${sentimiento} con un nivel de: ${level})`,
+      author: 'deiby'
+    }
+  }
 }
